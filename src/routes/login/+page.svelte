@@ -1,25 +1,25 @@
-<script>
+<script lang="ts">
 	import { goto } from '$app/navigation';
-
+	import { getCookie, setCookie } from 'typescript-cookie';
 	let email = '';
 	let password = '';
 
 	async function login() {
 		try {
-			const response = await fetch('http://127.0.0.1:8080/login', {
+			const response = await fetch('http://localhost:8080/auth/login', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
+				credentials: 'include',
 				body: JSON.stringify({ email, password })
 			});
 
 			const data = await response.json();
 
 			if (data.accessToken && data.refreshToken) {
-				localStorage.setItem('grantType', data.grantType);
-				localStorage.setItem('accessToken', data.accessToken);
-				localStorage.setItem('refreshToken', data.refreshToken);
+				setCookie('accessToken', data.accessToken, { path: '/;' });
+				setCookie('refreshToken', data.refreshToken, { path: '/;' });
 				goto('/home');
 			} else {
 				alert('잘못된 이메일 또는 비밀번호 입니다.');
@@ -27,7 +27,9 @@
 		} catch (err) {}
 	}
 
-	async function signup() {}
+	async function signup() {
+		goto('/signup');
+	}
 </script>
 
 <div>
