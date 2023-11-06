@@ -6,7 +6,7 @@
 	export let form: ActionData;
 </script>
 
-<table border="1">
+<table border={parseInt("1")}>
 	<th>Id</th>
 	<th>이벤트 이름</th>
 	<th>이벤트 주최자</th>
@@ -14,7 +14,7 @@
 	{#each data.data as event, index}
 		<tr>
 			<td>{index + 1}</td>
-			<td>{event.name}</td>
+			<a href="/event/{index}"><td>{event.name}</td></a>
 			<td>{event.user.nickName}</td>
 			<td
 				>{new Date(event.createdAt).getFullYear()}년
@@ -26,7 +26,7 @@
 		</tr>
 	{/each}
 </table>
-<form action="/addevent">
+<form action="/event/add">
 	<button>이벤트 추가</button>
 </form>
 <form action="/home">

@@ -6,6 +6,7 @@
 
 	let name = '';
 	let description = '';
+	let maxParticipation = ''
 
 	const back = async () => {
 		window.history.back();
@@ -19,7 +20,7 @@
 				'Content-Type': 'application/json'
 			},
 			credentials: 'include',
-			body: JSON.stringify({ name, description })
+			body: JSON.stringify({ name, description, maxParticipation })
 		});
 
 		if (!response.ok) {
@@ -38,6 +39,9 @@
 		</label><br /><br />
 		<label>
 			<textarea name="description" bind:value={description} rows="20" cols="50" wrap="virtual" />
+		</label> <br />
+		<label>
+			<input type="number" name="maxParticipation" bind:value={maxParticipation} min="1" max="100"/>
 		</label> <br />
 		<button type="submit">확인</button>
 	</form>
